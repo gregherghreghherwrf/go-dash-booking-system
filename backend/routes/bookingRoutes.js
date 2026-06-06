@@ -9,7 +9,7 @@ const {
 }
 =
 require(
- "../controllers/bookingTemp"
+ "../controllers/bookingControllers"
 );
 
 const {
