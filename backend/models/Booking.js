@@ -1,47 +1,50 @@
 const mongoose = require("mongoose");
 
 const bookingSchema = mongoose.Schema(
-{
-  user:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"User"
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+
+    facility: {
+      type: String,
+      required: true,
+    },
+
+    date: {
+      type: String,
+      required: true,
+    },
+
+    slot: {
+      type: String,
+      required: true,
+    },
+
+    amount: Number,
+
+    advancePaid: Number,
+
+    paymentStatus: {
+      type: String,
+      enum: ["pending", "paid", "failed"],
+      default: "pending",
+    },
+
+    paymentId: String,
+
+    orderId: String,
+
+    bookingStatus: {
+      type: String,
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
+    },
   },
-
-  facility:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"Facility"
-  },
-
-  date:String,
-
-  slot:String,
-
-  amount:Number,
-
-  advancePaid:Number,
-
-  paymentStatus:{
-    type:String,
-    default:"pending"
-  },
-
-  bookingStatus:{
-    type:String,
-    enum:[
-      "pending",
-      "approved",
-      "rejected"
-    ],
-    default:"pending"
+  {
+    timestamps: true,
   }
-},
-{
- timestamps:true
-}
 );
 
-module.exports =
-mongoose.model(
-"Booking",
-bookingSchema
-);
+module.exports = mongoose.model("Booking", bookingSchema);

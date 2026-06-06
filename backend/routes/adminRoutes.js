@@ -1,26 +1,13 @@
-const express =
-require("express");
-
-const router =
-express.Router();
-
+const express = require("express");
+const router = express.Router();
 const {
- approveBooking,
- rejectBooking
-}
-=
-require(
- "../controllers/adminController"
-);
+  getAllBookings,
+  approveBooking,
+  rejectBooking,
+} = require("../controllers/adminController");
 
-router.put(
- "/approve/:id",
- approveBooking
-);
-
-router.put(
- "/reject/:id",
- rejectBooking
-);
+router.get("/bookings", getAllBookings);
+router.put("/approve/:id", approveBooking);
+router.put("/reject/:id", rejectBooking);
 
 module.exports = router;
