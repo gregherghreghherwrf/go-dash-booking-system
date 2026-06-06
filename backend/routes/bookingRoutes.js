@@ -8,9 +8,7 @@ const {
  createBooking
 }
 =
-require(
- "../controllers/bookingController"
-);
+require("../controllers/bookingController");
 
 const {
  protect
@@ -26,5 +24,4 @@ router.post(
  createBooking
 );
 
-module.exports =
-router;
+module.exports = router;
