@@ -6,11 +6,3 @@ body {
   background: #000;
   color: white;
 }
-
-.section {
-  @apply py-20;
-}
-
-.container-custom {
-  @apply max-w-7xl mx-auto px-6;
-}
