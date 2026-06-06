@@ -13,7 +13,13 @@ export default function Navbar() {
         <div className="flex gap-6">
           <Link href="/">Home</Link>
           <Link href="/booking">Booking</Link>
-          <Link href="/login">Login</Link>
+          <Link href="/login">
+  Login
+</Link>
+
+<Link href="/register">
+  Register
+</Link>
         </div>
       </div>
     </nav>
