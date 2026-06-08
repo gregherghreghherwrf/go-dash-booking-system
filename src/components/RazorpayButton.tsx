@@ -2,13 +2,16 @@
 
 import axios from "axios";
 
+const API = process.env.NEXT_PUBLIC_API_URL!;
+
 export default function RazorpayButton() {
+  
 
   const handlePayment = async () => {
 
     const { data } =
       await axios.post(
-        "http://localhost:5000/api/payment/create-order",
+        `${API}/api/payment/create-order`,
         {
           amount: 180
         }

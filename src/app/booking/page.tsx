@@ -12,7 +12,7 @@ const PRICES: Record<string, { weekday: number; weekend: number; advance: number
   "Box Cricket": { weekday: 1300, weekend: 1500, advance: 400 },
 };
 
-const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API = process.env.NEXT_PUBLIC_API_URL!;
 
 interface SlotInfo {
   slot: string;

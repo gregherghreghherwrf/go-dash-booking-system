@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API = process.env.NEXT_PUBLIC_API_URL!;
 
 interface Booking {
   _id: string;

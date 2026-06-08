@@ -6,7 +6,7 @@ import Sidebar from "../../../components/admin/Sidebar";
 import StatsCard from "../../../components/admin/StatsCard";
 import BookingTable from "../../../components/admin/BookingTable";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API = process.env.NEXT_PUBLIC_API_URL!;
 
 interface Stats {
   totalBookings: number;
