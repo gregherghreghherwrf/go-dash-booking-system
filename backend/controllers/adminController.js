@@ -36,10 +36,27 @@ exports.approveBooking = async (req, res) => {
     // Send email if user email available
     if (booking.user?.email) {
       await sendEmail(
-        booking.user.email,
-        "✅ Go Dash Booking Confirmed!",
-        `Hi ${booking.user.name},\n\nYour booking has been CONFIRMED!\n\nFacility: ${booking.facility}\nDate: ${booking.date}\nSlot: ${booking.slot}\nAmount Paid: ₹${booking.advancePaid}\n\nSee you on the court! 🏏🏓\n\n— Team Go Dash`
-      );
+  booking.user.email,
+  "✅ Go Dash Booking Approved!",
+  `Hi ${booking.user.name},
+
+Your booking has been APPROVED.
+
+Booking Details:
+
+Facility: ${booking.facility}
+Date: ${booking.date}
+Slot: ${booking.slot}
+
+Payment Method:
+Cash / UPI / Paytm / PhonePe at Venue
+
+Please arrive 10 minutes before your slot time.
+
+Thank you for choosing Go Dash Sports.
+
+— Team Go Dash`
+);
     }
 
     res.json(booking);
@@ -64,10 +81,24 @@ exports.rejectBooking = async (req, res) => {
 
     if (booking.user?.email) {
       await sendEmail(
-        booking.user.email,
-        "❌ Go Dash Booking Update",
-        `Hi ${booking.user.name},\n\nUnfortunately, your booking request has been declined.\n\nFacility: ${booking.facility}\nDate: ${booking.date}\nSlot: ${booking.slot}\n\nPlease try booking a different slot.\n\n— Team Go Dash`
-      );
+  booking.user.email,
+  "❌ Go Dash Booking Rejected",
+  `Hi ${booking.user.name},
+
+Unfortunately your booking request could not be approved.
+
+Booking Details:
+
+Facility: ${booking.facility}
+Date: ${booking.date}
+Slot: ${booking.slot}
+
+Please choose another available slot and try again.
+
+Thank you for choosing Go Dash Sports.
+
+— Team Go Dash`
+);
     }
 
     res.json(booking);
