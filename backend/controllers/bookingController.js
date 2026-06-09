@@ -53,27 +53,18 @@ exports.createBooking = async (req, res) => {
 
     const user = await User.findById(req.user.id);
 
-await sendEmail(
-  user.email,
-  "Go Dash Booking Request Received",
-  `
-Hello ${user.name},
-
-We have received your booking request.
-
-Facility: ${facility}
-Date: ${date}
-Slot: ${slot}
-
-Status: Pending Approval
-
-Your booking request has been submitted successfully.
-
-Please pay via Cash, UPI, Paytm or PhonePe when you arrive at Go Dash after approval.
-
-Thank you for choosing Go Dash Sports.
-`
-);
+      await sendEmail(
+        user.email,
+        "Go Dash Booking Request Received",
+        `Hello ${user.name}, We have received your booking request.
+        Facility: ${facility}
+        Date: ${date}
+        Slot: ${slot}
+        Status: Pending Approval
+        Your booking request has been submitted successfully.
+        Please pay via Cash, UPI, Paytm or PhonePe when you arrive at Go Dash after approval.
+        Thank you for choosing Go Dash Sports.`
+      );
 
     res.status(201).json(booking);
   } catch (error) {
