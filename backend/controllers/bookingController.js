@@ -49,8 +49,6 @@ exports.createBooking = async (req, res) => {
 
       paymentStatus: "pending",
       bookingStatus: "pending",
-      name,
-      mobile,
     });
 
     const user = await User.findById(req.user.id);

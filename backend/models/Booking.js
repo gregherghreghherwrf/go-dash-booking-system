@@ -11,8 +11,10 @@ const bookingSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    customerName: String,
-    customerPhone: String,
+
+    name: String,
+
+    mobile: String,
 
     date: {
       type: String,
@@ -43,9 +45,6 @@ const bookingSchema = mongoose.Schema(
       enum: ["pending", "approved", "rejected"],
       default: "pending",
     },
-    name: String,
-
-    mobile: String,
   },
   {
     timestamps: true,
