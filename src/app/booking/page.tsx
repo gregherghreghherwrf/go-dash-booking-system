@@ -32,6 +32,8 @@ function BookingContent() {
   const [paying, setPaying] = useState(false);
   const [bookingDone, setBookingDone] = useState(false);
   const [error, setError] = useState("");
+  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
 
   // Fetch available slots whenever facility or date changes
   const fetchSlots = useCallback(async () => {
@@ -73,88 +75,42 @@ function BookingContent() {
     return PRICES[facility].advance;
   };
 
-  const handlePayment = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      setError("Please login first to book a slot.");
-      return;
-    }
-    if (!facility || !date || !selectedSlot) {
-      setError("Please fill all details.");
-      return;
-    }
+  const handleBooking = async () => {
+  const token = localStorage.getItem("token");
 
-    setPaying(true);
-    setError("");
+  if (!token) {
+    setError("Please login first.");
+    return;
+  }
 
-    try {
-      // 1. Create Razorpay order
-      const { data: order } = await axios.post(`${API}/api/payment/create-order`, {
-        amount: getAdvance(),
-      });
-
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY,
-        amount: order.amount,
-        currency: "INR",
-        order_id: order.id,
-        name: "Go Dash Sports",
-        description: `${facility} — ${selectedSlot}`,
-        image: "",
-        theme: { color: "#22c55e" },
-        handler: async (response: {
-          razorpay_payment_id: string;
-          razorpay_order_id: string;
-          razorpay_signature: string;
-        }) => {
-          try {
-            // 2. Verify payment
-            await axios.post(`${API}/api/payment/verify`, {
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-            });
-
-            // 3. Create booking
-            await axios.post(
-              `${API}/api/bookings`,
-              {
-                facility,
-                date,
-                slot: selectedSlot,
-                amount: getPrice(),
-                advancePaid: getAdvance(),
-                paymentId: response.razorpay_payment_id,
-                orderId: response.razorpay_order_id,
-              },
-              { headers: { Authorization: `Bearer ${token}` } }
-            );
-
-            setBookingDone(true);
-            setStep(3);
-          } catch (err: unknown) {
-            const msg =
-              err instanceof Error
-                ? err.message
-                : (err as { response?: { data?: { message?: string } } })?.response?.data?.message ||
-                  "Booking failed after payment. Contact support.";
-            setError(msg);
-          } finally {
-            setPaying(false);
-          }
+  try {
+    await axios.post(
+      `${API}/api/bookings`,
+      {
+        facility,
+        date,
+        slot: selectedSlot,
+        amount: getPrice(),
+        name,
+        mobile,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-        modal: {
-          ondismiss: () => setPaying(false),
-        },
-      };
+      }
+    );
 
-      const rzp = new (window as unknown as Window & { Razorpay: new (o: object) => { open: () => void } }).Razorpay(options);
-      rzp.open();
-    } catch {
-      setError("Payment initiation failed. Try again.");
-      setPaying(false);
-    }
-  };
+    setBookingDone(true);
+  } catch (err: unknown) {
+    const errorMessage =
+      err && typeof err === "object" && "response" in err
+        ? (err as { response?: { data?: { message?: string } } }).response?.data?.message
+        : "Booking failed";
+
+    setError(errorMessage || "Booking failed");
+  }
+};
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -204,7 +160,8 @@ function BookingContent() {
             Booking Submitted!
           </h2>
           <p style={{ color: "rgba(255,255,255,0.5)", marginBottom: 8, lineHeight: 1.7 }}>
-            Your slot is <strong style={{ color: "#fbbf24" }}>pending admin approval</strong>. You&apos;ll receive an email confirmation once approved.
+            Your slot is <strong style={{ color: "#fbbf24" }}>pending admin approval</strong>. Your slot has been reserved successfully.
+            Please pay by Cash, UPI, Paytm or PhonePe when you arrive at Go Dash.
           </p>
           <div
             style={{
@@ -229,8 +186,8 @@ function BookingContent() {
               <span style={{ color: "#f9fafb", fontWeight: 600, fontSize: "0.9rem" }}>{selectedSlot}</span>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.85rem" }}>Advance Paid</span>
-              <span style={{ color: "#22c55e", fontWeight: 700, fontSize: "0.95rem" }}>₹{getAdvance()}</span>
+              <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.85rem" }}>Payment Status</span>
+              <span style={{ color: "#22c55e", fontWeight: 700, fontSize: "0.95rem" }}>Pay At Venue</span>
             </div>
           </div>
           <a href="/" className="btn-primary" style={{ textDecoration: "none", width: "100%", justifyContent: "center" }}>
@@ -366,6 +323,24 @@ function BookingContent() {
               <label style={{ display: "block", color: "rgba(255,255,255,0.5)", fontSize: "0.8rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 8 }}>
                 Date
               </label>
+              <input
+                type="text"
+                placeholder="Full Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="input-field"
+                style={{ marginBottom: 12 }}
+              />
+
+              <input
+                type="tel"
+                placeholder="Mobile Number"
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
+                className="input-field"
+                style={{ marginBottom: 20 }}
+              />
+              
               <input
                 type="date"
                 className="input-field"
@@ -572,7 +547,7 @@ function BookingContent() {
             </div>
 
             <button
-              onClick={handlePayment}
+              onClick={handleBooking}
               disabled={paying}
               className="btn-primary"
               style={{
@@ -586,7 +561,7 @@ function BookingContent() {
               {paying ? (
                 <>⟳ Processing...</>
               ) : (
-                <>🔒 Pay ₹{getAdvance()} &amp; Book Slot</>
+                <>📅 Confirm Booking</>
               )}
             </button>
 

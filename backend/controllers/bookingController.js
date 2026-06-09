@@ -15,7 +15,14 @@ const ALL_SLOTS = [
 
 exports.createBooking = async (req, res) => {
   try {
-    const { facility, date, slot, amount, advancePaid, paymentId, orderId } = req.body;
+    const {
+    facility,
+    date,
+    slot,
+    amount,
+    name,
+    mobile,
+   } = req.body;
 
     // Check if slot is already booked and approved
     const conflict = await Booking.findOne({
@@ -36,9 +43,9 @@ exports.createBooking = async (req, res) => {
       slot,
       amount,
       advancePaid,
-      paymentStatus: paymentId ? "paid" : "pending",
-      paymentId,
-      orderId,
+      paymentStatus: "pending",
+      name,
+      mobile,
     });
 
     res.status(201).json(booking);
