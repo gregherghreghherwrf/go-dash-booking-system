@@ -42,7 +42,6 @@ exports.createBooking = async (req, res) => {
       date,
       slot,
       amount,
-      advancePaid,
       paymentStatus: "pending",
       name,
       mobile,
