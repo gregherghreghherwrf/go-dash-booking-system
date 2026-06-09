@@ -13,7 +13,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "http://127.0.0.1:3000",
-      "https://go-dash-booking-system-xt1z.vercel.app"
+      "https://go-dash-booking-system.vercel.app"
     ],
     credentials: true,
   })
