@@ -6,20 +6,13 @@ const sendEmail = async (email, subject, text) => {
     console.log("EMAIL_USER:", process.env.EMAIL_USER);
 
     const transporter = nodemailer.createTransport({
-      host: "74.125.24.109",
-      port: 465,
-      secure: true,
-      family: 4,
+      host: "smtp-relay.brevo.com",
+      port: 587,
+      secure: false,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
-      tls: {
-        servername: "smtp.gmail.com",
-        },
-      connectionTimeout: 30000,
-      greetingTimeout: 30000,
-      socketTimeout: 30000,
     });
 
     await transporter.verify();
