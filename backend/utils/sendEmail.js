@@ -13,6 +13,7 @@ const sendEmail = async (email, subject, text) => {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
+      connectionTimeout: 30000,
     });
 
     await transporter.verify();
