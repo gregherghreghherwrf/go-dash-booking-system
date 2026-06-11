@@ -26,6 +26,7 @@ function BookingContent() {
   const [facility, setFacility] = useState(prefillFacility);
   const [date, setDate] = useState("");
   const [selectedSlot, setSelectedSlot] = useState("");
+  const [selectedSlots, setSelectedSlots] = useState<string[]>([]);
   const [slots, setSlots] = useState<SlotInfo[]>([]);
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [step, setStep] = useState<1 | 2 | 3>(1);
@@ -504,10 +505,26 @@ const getBookingTimeRange = () => {
                 {slots.map(({ slot, available }) => (
                   <button
                     key={slot}
-                    onClick={() => available && setSelectedSlot(slot)}
+                    onClick={() => {
+  if (!available) return;
+
+  setSelectedSlot(slot);
+
+  const slotIndex = slots.findIndex(
+    (s) => s.slot === slot
+  );
+
+  const slotsNeeded = duration / 30;
+
+  const range = slots
+    .slice(slotIndex, slotIndex + slotsNeeded)
+    .map((s) => s.slot);
+
+  setSelectedSlots(range);
+}}
                     className={`slot-btn ${!available ? "booked" : selectedSlot === slot ? "selected" : "available"}`}
                     disabled={!available}
-                    style={selectedSlot === slot ? { background: "rgba(99,102,241,0.15)", borderColor: "#6366f1", color: "#818cf8" } : {}}
+                    style={selectedSlots.includes(slot) ? { background: "rgba(99,102,241,0.15)", borderColor: "#6366f1", color: "#818cf8" } : {}}
                   >
                     {slot}
                     <div style={{ fontSize: "0.7rem", marginTop: 4, opacity: 0.7 }}>
