@@ -93,6 +93,7 @@ function BookingContent() {
         slot: selectedSlot,
         amount: getPrice(),
         name,
+        email,
         mobile,
       },
       {

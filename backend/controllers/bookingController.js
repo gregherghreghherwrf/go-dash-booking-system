@@ -52,8 +52,6 @@ exports.createBooking = async (req, res) => {
       bookingStatus: "pending",
     });
 
-    const user = await User.findById(req.user.id);
-
       await sendEmail(
   email,
   "Go Dash Booking Request Received",
