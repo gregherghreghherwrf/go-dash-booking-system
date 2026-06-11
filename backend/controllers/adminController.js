@@ -10,7 +10,6 @@ exports.getAllBookings = async (req, res) => {
     if (date) filter.date = date;
 
     const bookings = await Booking.find(filter)
-      .populate("user", "name email phone")
       .sort({ createdAt: -1 });
 
     res.json(bookings);
@@ -21,10 +20,7 @@ exports.getAllBookings = async (req, res) => {
 
 exports.approveBooking = async (req, res) => {
   try {
-    const booking = await Booking.findById(req.params.id).populate(
-      "user",
-      "name email"
-    );
+    const booking = await Booking.findById(req.params.id);
 
     if (!booking) {
       return res.status(404).json({ message: "Booking not found" });
@@ -34,11 +30,11 @@ exports.approveBooking = async (req, res) => {
     await booking.save();
 
     // Send email if user email available
-    if (booking.user?.email) {
+    if (booking.email) {
       await sendEmail(
-  booking.user.email,
+  booking.email,
   "✅ Go Dash Booking Approved!",
-  `Hi ${booking.user.name},
+  `Hi ${booking.name},
 
 Your booking has been APPROVED.
 
@@ -67,10 +63,7 @@ Thank you for choosing Go Dash Sports.
 
 exports.rejectBooking = async (req, res) => {
   try {
-    const booking = await Booking.findById(req.params.id).populate(
-      "user",
-      "name email"
-    );
+    const booking = await Booking.findById(req.params.id);
 
     if (!booking) {
       return res.status(404).json({ message: "Booking not found" });
@@ -79,11 +72,11 @@ exports.rejectBooking = async (req, res) => {
     booking.bookingStatus = "rejected";
     await booking.save();
 
-    if (booking.user?.email) {
+    if (booking.email) {
       await sendEmail(
-  booking.user.email,
+  booking.email,
   "❌ Go Dash Booking Rejected",
-  `Hi ${booking.user.name},
+  `Hi ${booking.name},
 
 Unfortunately your booking request could not be approved.
 
