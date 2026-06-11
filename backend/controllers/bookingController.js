@@ -36,16 +36,25 @@ exports.createBooking = async (req, res) => {
    } = req.body;
 
     // Check if slot is already booked and approved
-    const conflict = await Booking.findOne({
+    const bookingCount = await Booking.countDocuments({
       facility,
       date,
       slot,
       bookingStatus: { $in: ["pending", "approved"] },
     });
 
-    if (conflict) {
-      return res.status(409).json({ message: "Slot already booked" });
-    }
+    const FACILITY_CAPACITY = {
+  Pickleball: 6,
+  "Box Cricket": 2,
+};
+
+    if (
+  bookingCount >= FACILITY_CAPACITY[facility]
+) {
+  return res.status(409).json({
+    message: "All courts are booked for this slot",
+  });
+}
 
     const booking = await Booking.create({
       facility,
@@ -92,17 +101,28 @@ exports.getAvailableSlots = async (req, res) => {
   try {
     const { facility, date } = req.query;
 
-    const booked = await Booking.find({
+   const FACILITY_CAPACITY = {
+  Pickleball: 6,
+  "Box Cricket": 2,
+};
+
+const available = await Promise.all(
+  ALL_SLOTS.map(async (slot) => {
+    const bookingCount = await Booking.countDocuments({
       facility,
       date,
-      bookingStatus: { $in: ["pending", "approved"] },
-    }).select("slot");
-
-    const bookedSlots = booked.map((b) => b.slot);
-    const available = ALL_SLOTS.map((slot) => ({
       slot,
-      available: !bookedSlots.includes(slot),
-    }));
+      bookingStatus: { $in: ["pending", "approved"] },
+    });
+
+    return {
+      slot,
+      available: bookingCount < FACILITY_CAPACITY[facility],
+      booked: bookingCount,
+      remaining: FACILITY_CAPACITY[facility] - bookingCount,
+    };
+  })
+);
 
     res.json(available);
   } catch (error) {
