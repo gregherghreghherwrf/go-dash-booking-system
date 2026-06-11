@@ -338,6 +338,8 @@ function BookingContent() {
                 placeholder="Email Address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className="input-field"
+                style={{ marginBottom: 12 }}
               />
 
               <input
