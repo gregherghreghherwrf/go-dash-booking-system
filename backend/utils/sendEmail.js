@@ -23,10 +23,9 @@ const sendEmail = async (email, subject, text) => {
       textContent: text
     };
 
-    const result = await apiInstance.sendTransacEmail(sendSmtpEmail);
-
+    const response = await apiInstance.sendTransacEmail(sendSmtpEmail);
     console.log("Email sent successfully");
-    console.log(result);
+    console.log(response);
   } catch (error) {
     console.error("Brevo Error:", error);
   }
