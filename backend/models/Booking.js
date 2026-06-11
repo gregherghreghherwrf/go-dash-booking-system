@@ -31,6 +31,11 @@ const bookingSchema = mongoose.Schema(
       required: true,
     },
 
+    duration: {
+  type: Number,
+  default: 30,
+},
+
     amount: Number,
 
     advancePaid: Number,

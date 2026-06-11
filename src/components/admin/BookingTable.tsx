@@ -13,6 +13,7 @@ interface Booking {
   facility: string;
   date: string;
   slot: string;
+  duration: number;
   amount: number;
   advancePaid: number;
   paymentStatus: string;
@@ -23,6 +24,25 @@ interface Booking {
 interface BookingTableProps {
   filter?: string;
 }
+
+const getBookingTimeRange = (
+  slot: string,
+  duration: number = 30
+) => {
+  const startTime = slot.split(" - ")[0];
+
+  const date = new Date(`2000-01-01 ${startTime}`);
+
+  date.setMinutes(date.getMinutes() + duration);
+
+  const endTime = date.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+
+  return `${startTime} - ${endTime}`;
+};
 
 export default function BookingTable({ filter = "all" }: BookingTableProps) {
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -223,7 +243,23 @@ export default function BookingTable({ filter = "all" }: BookingTableProps) {
                     {b.date}
                   </td>
                   <td style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.82rem", whiteSpace: "nowrap" }}>
-                    {b.slot}
+                    <div>
+  <div>
+    {getBookingTimeRange(
+      b.slot,
+      b.duration
+    )}
+  </div>
+
+  <div
+    style={{
+      fontSize: "0.75rem",
+      color: "rgba(255,255,255,0.4)",
+    }}
+  >
+    {b.duration} Minutes
+  </div>
+</div>
                   </td>
                   <td>
                     <div>
