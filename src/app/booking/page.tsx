@@ -74,6 +74,35 @@ function BookingContent() {
   return (duration / 30) * basePrice;
 };
 
+const getBookingTimeRange = () => {
+  if (!selectedSlot) return "";
+
+  const startTime = selectedSlot.split(" - ")[0];
+
+  const dateObj = new Date();
+
+  const [time, period] = startTime.split(" ");
+  let [hours, minutes] = time.split(":").map(Number);
+
+  if (period === "PM" && hours !== 12) hours += 12;
+  if (period === "AM" && hours === 12) hours = 0;
+
+  dateObj.setHours(hours);
+  dateObj.setMinutes(minutes);
+
+  const endTime = new Date(
+    dateObj.getTime() + duration * 60000
+  );
+
+  const endFormatted = endTime.toLocaleTimeString([], {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+
+  return `${startTime} - ${endFormatted}`;
+};
+
   const handleBooking = async () => {
   const token = localStorage.getItem("token");
 
@@ -539,7 +568,7 @@ function BookingContent() {
               {[
                 { label: "Facility", value: facility },
                 { label: "Date", value: date },
-                { label: "Slot", value: selectedSlot },
+                { label: "Booking Time", value: getBookingTimeRange(),},
                 { label: "Duration", value: `${duration} Minutes` },
                 { label: "Total Price", value: `₹${getPrice()}` },
                 
