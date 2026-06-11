@@ -7,7 +7,9 @@ const API = process.env.NEXT_PUBLIC_API_URL!;
 
 interface Booking {
   _id: string;
-  user?: { name: string; email: string; phone?: string };
+  name: string; 
+  email: string; 
+  mobile: string;
   facility: string;
   date: string;
   slot: string;
@@ -193,10 +195,13 @@ export default function BookingTable({ filter = "all" }: BookingTableProps) {
                   <td>
                     <div>
                       <div style={{ fontWeight: 600, fontSize: "0.9rem", color: "#f9fafb" }}>
-                        {b.user?.name ?? "Unknown"}
+                        {b.name}
                       </div>
                       <div style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.35)", marginTop: 2 }}>
-                        {b.user?.email ?? "—"}
+                        {b.email}
+                      </div>
+                       <div style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.35)", }}>
+                        {b.mobile}
                       </div>
                     </div>
                   </td>
