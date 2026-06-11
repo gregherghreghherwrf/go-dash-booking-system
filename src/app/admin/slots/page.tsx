@@ -88,20 +88,28 @@ export default function SlotsPage() {
                     <span className="badge badge-approved">Active</span>
                   </td>
                   <td>
-  <div style={{ color: "#f9fafb" }}>
-    Booked: {slotData.booked}/{slotData.capacity}
+  <div style={{ color: "#22c55e" }}>
+    Pickleball: {slotData.pickleballBooked}/6 booked
   </div>
 
-  <div
+  <div style={{ color: "#fbbf24" }}>
+    Available: {slotData.pickleballAvailable}
+  </div>
+
+  <hr
     style={{
-      color:
-        slotData.available > 0
-          ? "#22c55e"
-          : "#ef4444",
-      fontSize: "0.82rem",
+      border: "none",
+      borderTop: "1px solid rgba(255,255,255,0.1)",
+      margin: "6px 0",
     }}
-  >
-    Available: {slotData.available}
+  />
+
+  <div style={{ color: "#60a5fa" }}>
+    Box Cricket: {slotData.boxBooked}/2 booked
+  </div>
+
+  <div style={{ color: "#fbbf24" }}>
+    Available: {slotData.boxAvailable}
   </div>
 </td>
                 </tr>
