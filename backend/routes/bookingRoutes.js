@@ -8,7 +8,7 @@ const {
 } = require("../controllers/bookingController");
 const { protect } = require("../middleware/authMiddleware");
 
-router.post("/", protect, createBooking);
+router.post("/", createBooking);
 router.get("/available-slots", getAvailableSlots);
 router.get("/my-bookings", protect, getMyBookings);
 router.get("/stats", getStats);

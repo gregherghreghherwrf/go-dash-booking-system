@@ -26,6 +26,11 @@ const bookingSchema = mongoose.Schema(
       required: true,
     },
 
+    email: {
+      type: String,
+      required: true,
+    },
+
     amount: Number,
 
     advancePaid: Number,
