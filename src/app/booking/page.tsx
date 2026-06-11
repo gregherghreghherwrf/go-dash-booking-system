@@ -7,9 +7,9 @@ import Navbar from "../../components/Navbar";
 
 const FACILITIES = ["Pickleball", "Box Cricket"];
 
-const PRICES: Record<string, { weekday: number; weekend: number; advance: number }> = {
-  Pickleball: { weekday: 600, weekend: 600, advance: 180 },
-  "Box Cricket": { weekday: 1300, weekend: 1500, advance: 400 },
+const BASE_PRICES: Record<string, number> = {
+  Pickleball: 300,
+  "Box Cricket": 300,
 };
 
 const API = process.env.NEXT_PUBLIC_API_URL!;
@@ -35,6 +35,7 @@ function BookingContent() {
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
+  const [duration, setDuration] = useState(60);
 
   // Fetch available slots whenever facility or date changes
   const fetchSlots = useCallback(async () => {
@@ -65,16 +66,13 @@ function BookingContent() {
     return d.getDay() === 0 || d.getDay() === 6;
   };
 
-  const getPrice = () => {
-    if (!facility || !date) return 0;
-    const priceObj = PRICES[facility];
-    return isWeekend(date) ? priceObj.weekend : priceObj.weekday;
-  };
+ const getPrice = () => {
+  if (!facility) return 0;
 
-  const getAdvance = () => {
-    if (!facility) return 0;
-    return PRICES[facility].advance;
-  };
+  const basePrice = BASE_PRICES[facility] || 300;
+
+  return (duration / 30) * basePrice;
+};
 
   const handleBooking = async () => {
   const token = localStorage.getItem("token");
@@ -91,6 +89,7 @@ function BookingContent() {
         facility,
         date,
         slot: selectedSlot,
+        duration,
         amount: getPrice(),
         name,
         email,
@@ -360,6 +359,17 @@ function BookingContent() {
                 onChange={(e) => setDate(e.target.value)}
                 style={{ marginBottom: 12 }}
               />
+              <select
+                value={duration}
+                onChange={(e) => setDuration(Number(e.target.value))}
+                className="input-field"
+                style={{ marginBottom: 12 }}
+              >
+              <option value={30}>30 Minutes</option>
+              <option value={60}>1 Hour</option>
+              <option value={90}>1.5 Hours</option>
+              <option value={120}>2 Hours</option>
+              </select>
 
               {facility && date && (
                 <div
@@ -372,13 +382,14 @@ function BookingContent() {
                   }}
                 >
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-                    <span style={{ color: "rgba(255,255,255,0.45)" }}>Session Price</span>
-                    <span style={{ color: "#4ade80", fontWeight: 700 }}>₹{getPrice()}</span>
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "space-between" }}>
-                    <span style={{ color: "rgba(255,255,255,0.45)" }}>Advance Online</span>
-                    <span style={{ color: "#22c55e", fontWeight: 700 }}>₹{getAdvance()}</span>
-                  </div>
+  <span>Duration</span>
+  <span>{duration} Minutes</span>
+</div>
+
+<div style={{ display: "flex", justifyContent: "space-between" }}>
+  <span>Total Price</span>
+  <span>₹{getPrice()}</span>
+</div>
                 </div>
               )}
             </div>
@@ -529,6 +540,7 @@ function BookingContent() {
                 { label: "Facility", value: facility },
                 { label: "Date", value: date },
                 { label: "Slot", value: selectedSlot },
+                { label: "Duration", value: `${duration} Minutes` },
                 { label: "Total Price", value: `₹${getPrice()}` },
                 
               ].map(({ label, value}) => (
