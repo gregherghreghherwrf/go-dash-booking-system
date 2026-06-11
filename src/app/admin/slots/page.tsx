@@ -38,7 +38,10 @@ export default function SlotsPage() {
           date: new Date().toISOString().split("T")[0],
         },
       })
-      .then((res) => setSlots(res.data))
+      .then((res) => {
+  console.log("Slot Stats:", res.data);
+  setSlots(res.data);
+})
       .catch((err) => console.error(err));
   }, []);
   return (
