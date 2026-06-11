@@ -52,27 +52,27 @@ exports.createBooking = async (req, res) => {
       bookingStatus: "pending",
     });
 
-      await sendEmail(
-  email,
-  "Go Dash Booking Request Received",
-  `
-Hello ${name},
+//       await sendEmail(
+//   email,
+//   "Go Dash Booking Request Received",
+//   `
+// Hello ${name},
 
-We have received your booking request.
+// We have received your booking request.
 
-Facility: ${facility}
-Date: ${date}
-Slot: ${slot}
+// Facility: ${facility}
+// Date: ${date}
+// Slot: ${slot}
 
-Status: Pending Approval
+// Status: Pending Approval
 
-You will receive another email once the admin approves your booking.
+// You will receive another email once the admin approves your booking.
 
-Payment can be made by Cash, UPI, Paytm or PhonePe when you arrive.
+// Payment can be made by Cash, UPI, Paytm or PhonePe when you arrive.
 
-Thank you for choosing Go Dash Sports.
-`
-);
+// Thank you for choosing Go Dash Sports.
+// `
+// );
 
     res.status(201).json(booking);
   } catch (error) {
