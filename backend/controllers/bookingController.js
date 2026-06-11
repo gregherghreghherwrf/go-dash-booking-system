@@ -174,3 +174,41 @@ exports.getStats = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.getSlotStats = async (req, res) => {
+  try {
+    const { facility, date } = req.query;
+
+    const FACILITY_CAPACITY = {
+      Pickleball: 6,
+      "Box Cricket": 2,
+    };
+
+    const slots = ALL_SLOTS;
+
+    const result = await Promise.all(
+      slots.map(async (slot) => {
+        const booked = await Booking.countDocuments({
+          facility,
+          date,
+          slot,
+          bookingStatus: { $in: ["pending", "approved"] },
+        });
+
+        return {
+          slot,
+          booked,
+          capacity: FACILITY_CAPACITY[facility],
+          available:
+            FACILITY_CAPACITY[facility] - booked,
+        };
+      })
+    );
+
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
