@@ -22,8 +22,9 @@ exports.createBooking = async (req, res) => {
     slot,
     amount,
     name,
-    mobile,
     email,
+    mobile,
+    
    } = req.body;
 
     // Check if slot is already booked and approved
@@ -44,8 +45,9 @@ exports.createBooking = async (req, res) => {
       slot,
       amount,
       name,
-      mobile,
       email,
+      mobile,
+      
       paymentStatus: "pending",
       bookingStatus: "pending",
     });

@@ -34,6 +34,7 @@ function BookingContent() {
   const [error, setError] = useState("");
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
+  const [email, setEmail] = useState("");
 
   // Fetch available slots whenever facility or date changes
   const fetchSlots = useCallback(async () => {
@@ -330,6 +331,13 @@ function BookingContent() {
                 onChange={(e) => setName(e.target.value)}
                 className="input-field"
                 style={{ marginBottom: 12 }}
+              />
+
+              <input
+                type="email"
+                placeholder="Email Address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
 
               <input
