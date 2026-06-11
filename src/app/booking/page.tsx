@@ -530,9 +530,8 @@ function BookingContent() {
                 { label: "Date", value: date },
                 { label: "Slot", value: selectedSlot },
                 { label: "Total Price", value: `₹${getPrice()}` },
-                { label: "Pay Now (Advance)", value: `₹${getAdvance()}`, highlight: true },
-                { label: "Pay at Venue", value: `₹${getPrice() - getAdvance()}` },
-              ].map(({ label, value, highlight }) => (
+                
+              ].map(({ label, value}) => (
                 <div
                   key={label}
                   style={{
@@ -544,13 +543,7 @@ function BookingContent() {
                   }}
                 >
                   <span style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.88rem" }}>{label}</span>
-                  <span
-                    style={{
-                      color: highlight ? "#22c55e" : "#f9fafb",
-                      fontWeight: highlight ? 800 : 600,
-                      fontSize: highlight ? "1rem" : "0.9rem",
-                    }}
-                  >
+                  <span>
                     {value}
                   </span>
                 </div>
@@ -575,10 +568,6 @@ function BookingContent() {
                 <>📅 Confirm Booking</>
               )}
             </button>
-
-            <p style={{ textAlign: "center", marginTop: 12, color: "rgba(255,255,255,0.25)", fontSize: "0.78rem" }}>
-              Secured by Razorpay · 100% encrypted payment
-            </p>
           </div>
         )}
       </div>
