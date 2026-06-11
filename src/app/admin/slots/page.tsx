@@ -3,16 +3,24 @@
 import Sidebar from "../../../components/admin/Sidebar";
 
 const ALL_SLOTS = [
-  "6:00 AM - 7:00 AM",
-  "7:00 AM - 8:00 AM",
-  "8:00 AM - 9:00 AM",
-  "9:00 AM - 10:00 AM",
-  "4:00 PM - 5:00 PM",
-  "5:00 PM - 6:00 PM",
-  "6:00 PM - 7:00 PM",
-  "7:00 PM - 8:00 PM",
-  "8:00 PM - 9:00 PM",
-  "9:00 PM - 10:00 PM",
+  "4:00 PM - 4:30 PM",
+  "4:30 PM - 5:00 PM",
+  "5:00 PM - 5:30 PM",
+  "5:30 PM - 6:00 PM",
+  "6:00 PM - 6:30 PM",
+  "6:30 PM - 7:00 PM",
+  "7:00 PM - 7:30 PM",
+  "7:30 PM - 8:00 PM",
+  "8:00 PM - 8:30 PM",
+  "8:30 PM - 9:00 PM",
+  "9:00 PM - 9:30 PM",
+  "9:30 PM - 10:00 PM",
+  "10:00 PM - 10:30 PM",
+  "10:30 PM - 11:00 PM",
+  "11:00 PM - 11:30 PM",
+  "11:30 PM - 12:00 AM",
+  "12:00 AM - 12:30 AM",
+  "12:30 AM - 1:00 AM",
 ];
 
 export default function SlotsPage() {
