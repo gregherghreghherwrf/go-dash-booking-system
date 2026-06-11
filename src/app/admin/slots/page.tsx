@@ -32,7 +32,7 @@ export default function SlotsPage() {
   const [slots, setSlots] = useState([]);
   useEffect(() => {
     axios
-      .get(`${API}/api/bookings/slot-stats`, {
+      .get(`${API}/api/admin/slot-stats`, {
         params: {
           facility: "Pickleball",
           date: new Date().toISOString().split("T")[0],
