@@ -1,33 +1,37 @@
-const brevo = require("@getbrevo/brevo");
+const axios = require("axios");
 
 const sendEmail = async (email, subject, text) => {
   try {
-    const apiInstance = new brevo.TransactionalEmailsApi();
-
-    apiInstance.setApiKey(
-      brevo.TransactionalEmailsApiApiKeys.apiKey,
-      process.env.BREVO_API_KEY
+    const response = await axios.post(
+      "https://api.brevo.com/v3/smtp/email",
+      {
+        sender: {
+          name: "Go Dash Sports",
+          email: "harsh.khatri2105@gmail.com",
+        },
+        to: [
+          {
+            email: email,
+          },
+        ],
+        subject: subject,
+        textContent: text,
+      },
+      {
+        headers: {
+          "api-key": process.env.BREVO_API_KEY,
+          "Content-Type": "application/json",
+        },
+      }
     );
 
-    const sendSmtpEmail = {
-      sender: {
-        name: "Go Dash Sports",
-        email: "harsh.khatri2105@gmail.com"
-      },
-      to: [
-        {
-          email: email
-        }
-      ],
-      subject: subject,
-      textContent: text
-    };
-
-    const response = await apiInstance.sendTransacEmail(sendSmtpEmail);
     console.log("Email sent successfully");
-    console.log(response);
+    console.log(response.data);
   } catch (error) {
-    console.error("Brevo Error:", error);
+    console.error(
+      "Brevo Error:",
+      error.response?.data || error.message
+    );
   }
 };
 
