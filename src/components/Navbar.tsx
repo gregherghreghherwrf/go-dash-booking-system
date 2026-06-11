@@ -18,7 +18,6 @@ export default function Navbar() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/booking", label: "Book Now" },
-    { href: "/login", label: "Login" },
   ];
 
   return (
@@ -126,10 +125,6 @@ export default function Navbar() {
             </Link>
           ))}
 
-          <Link href="/register" className="btn-primary" style={{ marginLeft: 8, padding: "10px 22px", fontSize: "0.88rem" }}>
-            Register Free
-          </Link>
-
           <Link
             href="/admin/dashboard"
             style={{
@@ -190,14 +185,6 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Link
-            href="/register"
-            onClick={() => setMenuOpen(false)}
-            className="btn-primary"
-            style={{ marginTop: 16, display: "inline-block" }}
-          >
-            Register Free
-          </Link>
         </div>
       )}
 
