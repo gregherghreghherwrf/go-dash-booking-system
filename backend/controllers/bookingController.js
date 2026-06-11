@@ -177,30 +177,32 @@ exports.getStats = async (req, res) => {
 
 exports.getSlotStats = async (req, res) => {
   try {
-    const { facility, date } = req.query;
-
-    const FACILITY_CAPACITY = {
-      Pickleball: 6,
-      "Box Cricket": 2,
-    };
-
-    const slots = ALL_SLOTS;
+    const today = new Date().toISOString().split("T")[0];
 
     const result = await Promise.all(
-      slots.map(async (slot) => {
-        const booked = await Booking.countDocuments({
-          facility,
-          date,
+      ALL_SLOTS.map(async (slot) => {
+        const pickleballBooked = await Booking.countDocuments({
+          facility: "Pickleball",
+          date: today,
+          slot,
+          bookingStatus: { $in: ["pending", "approved"] },
+        });
+
+        const boxBooked = await Booking.countDocuments({
+          facility: "Box Cricket",
+          date: today,
           slot,
           bookingStatus: { $in: ["pending", "approved"] },
         });
 
         return {
           slot,
-          booked,
-          capacity: FACILITY_CAPACITY[facility],
-          available:
-            FACILITY_CAPACITY[facility] - booked,
+
+          pickleballBooked,
+          pickleballAvailable: 6 - pickleballBooked,
+
+          boxBooked,
+          boxAvailable: 2 - boxBooked,
         };
       })
     );
