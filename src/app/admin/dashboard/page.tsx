@@ -55,8 +55,9 @@ export default function Dashboard() {
 />
 
       <main
-        style={{
-          marginLeft: 260,
+  className="admin-main"
+  style={{
+    marginLeft: 260,
           padding: "40px 36px",
           width: "100%",
           minHeight: "100vh",
@@ -74,6 +75,23 @@ export default function Dashboard() {
           }}
         >
           <div>
+            <button
+    className="mobile-menu-btn"
+    onClick={() => setSidebarOpen(true)}
+    style={{
+      display: "none",
+      background: "rgba(17,24,39,0.8)",
+      border: "1px solid rgba(255,255,255,0.1)",
+      color: "#fff",
+      padding: "10px 14px",
+      borderRadius: 10,
+      marginBottom: 12,
+      cursor: "pointer",
+      fontSize: "20px",
+    }}
+  >
+    ☰
+  </button>
             <h1
               style={{
                 fontFamily: "Space Grotesk, sans-serif",

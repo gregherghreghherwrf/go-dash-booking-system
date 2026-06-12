@@ -107,7 +107,7 @@ exports.markPaymentPaid = async (req, res) => {
       {
         paymentStatus: "paid",
       },
-      { new: true }
+      { returnDocument: "after" }
     );
 
     res.json(booking);
