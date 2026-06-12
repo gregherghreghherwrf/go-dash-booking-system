@@ -443,3 +443,38 @@ body {
 .data-table tr:hover td {
   background: rgba(255,255,255,0.02);
 }
+
+@media (max-width: 1024px) {
+  .admin-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 999;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-close {
+    display: block !important;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(34,197,94,0.15);
+    color: #22c55e;
+    font-size: 22px;
+    cursor: pointer;
+    margin-bottom: 16px;
+  }
+}

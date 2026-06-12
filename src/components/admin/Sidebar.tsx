@@ -8,13 +8,43 @@ const navItems = [
   { href: "/admin/bookings", icon: "📋", label: "Bookings" },
   { href: "/admin/facilities", icon: "🏟️", label: "Facilities" },
   { href: "/admin/slots", icon: "🕐", label: "Slot Management" },
+  
 ];
 
-export default function Sidebar() {
+interface SidebarProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+export default function Sidebar({
+  isOpen = true,
+  onClose,
+}: SidebarProps) {
   const pathname = usePathname();
 
   return (
-    <aside className="admin-sidebar">
+    <aside
+  className={`admin-sidebar ${
+    isOpen ? "sidebar-open" : ""
+  }`}
+>
+  <button
+  onClick={onClose}
+  style={{
+    position: "absolute",
+    top: 16,
+    right: 16,
+    background: "transparent",
+    border: "none",
+    color: "#fff",
+    fontSize: "24px",
+    cursor: "pointer",
+    display: "none",
+  }}
+  className="sidebar-close"
+>
+  ✕
+</button>
       {/* Brand */}
       <div
         style={{

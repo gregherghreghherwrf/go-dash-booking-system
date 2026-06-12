@@ -21,6 +21,8 @@ export default function Dashboard() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [loadingStats, setLoadingStats] = useState(true);
   const [now, setNow] = useState(new Date());
+  const [sidebarOpen, setSidebarOpen] =
+  useState(false);
 
   // Clock ticker
   useEffect(() => {
@@ -47,7 +49,10 @@ export default function Dashboard() {
 
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "var(--bg-base)" }}>
-      <Sidebar />
+      <Sidebar
+  isOpen={sidebarOpen}
+  onClose={() => setSidebarOpen(false)}
+/>
 
       <main
         style={{
