@@ -159,13 +159,13 @@ exports.getStats = async (req, res) => {
 
     const revenueResult = await Booking.aggregate([
       { $match: { paymentStatus: "paid" } },
-      { $group: { _id: null, total: { $sum: "$advancePaid" } } },
+      { $group: { _id: null, total: { $sum: "$amount" } } },
     ]);
     const totalRevenue = revenueResult[0]?.total || 0;
 
     const todayRevenueResult = await Booking.aggregate([
       { $match: { paymentStatus: "paid", date: date } },
-      { $group: { _id: null, total: { $sum: "$advancePaid" } } },
+      { $group: { _id: null, total: { $sum: "$amount" } } },
     ]);
     const todayRevenue = todayRevenueResult[0]?.total || 0;
 
