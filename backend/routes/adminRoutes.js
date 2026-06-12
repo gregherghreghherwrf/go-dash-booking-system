@@ -5,12 +5,13 @@ const {
   getAllBookings,
   approveBooking,
   rejectBooking,
+  markPaymentPaid,
 } = require("../controllers/adminController");
 
 router.get("/bookings", getAllBookings);
 router.get("/slot-stats", bookingController.getSlotStats);
 router.put("/approve/:id", approveBooking);
 router.put("/reject/:id", rejectBooking);
-router.put("/payment-paid/:id", adminController.markPaymentPaid);
+router.put("/payment-paid/:id", markPaymentPaid);
 
 module.exports = router;
