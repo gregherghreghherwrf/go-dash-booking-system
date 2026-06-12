@@ -99,3 +99,21 @@ Thank you for choosing Go Dash Sports.
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.markPaymentPaid = async (req, res) => {
+  try {
+    const booking = await Booking.findByIdAndUpdate(
+      req.params.id,
+      {
+        paymentStatus: "paid",
+      },
+      { new: true }
+    );
+
+    res.json(booking);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};

@@ -99,6 +99,27 @@ export default function BookingTable({ filter = "all" }: BookingTableProps) {
     }
   };
 
+  const markAsPaid = async (id: string) => {
+  try {
+    const { data } = await axios.put(
+      `${API}/api/admin/payment-paid/${id}`
+    );
+
+    setBookings((prev) =>
+      prev.map((b) =>
+        b._id === id
+          ? {
+              ...b,
+              paymentStatus: data.paymentStatus,
+            }
+          : b
+      )
+    );
+  } catch (err) {
+    console.error("Payment update failed", err);
+  }
+};
+
   const statusBadge = (status: string) => {
     const map: Record<string, string> = {
       pending: "badge-pending",
@@ -263,8 +284,7 @@ export default function BookingTable({ filter = "all" }: BookingTableProps) {
 </div>
                   </td>
                   <td>
-                    <div>
-                      <td>
+                    <div>         
   <div
     style={{
       color: "#22c55e",
@@ -283,8 +303,18 @@ export default function BookingTable({ filter = "all" }: BookingTableProps) {
   >
     {b.duration} Minutes
   </div>
-</td>
-                      {paymentBadge(b.paymentStatus)}
+                      {b.paymentStatus === "paid" ? (
+  <span className="badge badge-approved">
+    💰 Paid
+  </span>
+) : (
+  <button
+    className="btn-ghost"
+    onClick={() => markAsPaid(b._id)}
+  >
+    Mark Paid
+  </button>
+)}
                       {b.advancePaid > 0 && (
                         <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.3)", marginTop: 4 }}>
                           ₹{b.advancePaid} paid

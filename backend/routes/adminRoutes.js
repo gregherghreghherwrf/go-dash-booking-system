@@ -11,5 +11,6 @@ router.get("/bookings", getAllBookings);
 router.get("/slot-stats", bookingController.getSlotStats);
 router.put("/approve/:id", approveBooking);
 router.put("/reject/:id", rejectBooking);
+router.put("/payment-paid/:id", adminAuth, adminController.markPaymentPaid);
 
 module.exports = router;
