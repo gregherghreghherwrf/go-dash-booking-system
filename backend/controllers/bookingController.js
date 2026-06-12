@@ -24,6 +24,9 @@ const ALL_SLOTS = [
 
 exports.createBooking = async (req, res) => {
   try {
+    console.log("BOOKING REQUEST");
+    console.log(req.body);
+    
     const {
     facility,
     date,
