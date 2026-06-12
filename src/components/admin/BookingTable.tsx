@@ -267,20 +267,25 @@ export default function BookingTable({ filter = "all" }: BookingTableProps) {
                   <td style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.82rem", whiteSpace: "nowrap" }}>
                     <div>
   <div>
-    {getBookingTimeRange(
-      b.slot,
-      b.duration
-    )}
+  <div
+    style={{
+      color: "#f9fafb",
+      fontWeight: 600,
+    }}
+  >
+    {getBookingTimeRange(b.slot, b.duration)}
   </div>
 
   <div
     style={{
+      color: "rgba(255,255,255,0.45)",
       fontSize: "0.75rem",
-      color: "rgba(255,255,255,0.4)",
+      marginTop: 4,
     }}
   >
-    {b.duration} Minutes
+    ₹{b.amount} • {b.duration} Minutes
   </div>
+</div>
 </div>
                   </td>
                   <td>
@@ -309,16 +314,35 @@ export default function BookingTable({ filter = "all" }: BookingTableProps) {
   </span>
 ) : (
   <button
-    className="btn-ghost"
-    onClick={() => markAsPaid(b._id)}
-  >
-    Mark Paid
-  </button>
+  onClick={() => markAsPaid(b._id)}
+  style={{
+    background: "rgba(251,191,36,0.12)",
+    border: "1px solid rgba(251,191,36,0.25)",
+    color: "#fbbf24",
+    borderRadius: 999,
+    padding: "8px 14px",
+    fontSize: "0.8rem",
+    fontWeight: 600,
+    cursor: "pointer",
+  }}
+>
+  💰 Collect
+</button>
 )}
                       {b.advancePaid > 0 && (
-                        <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.3)", marginTop: 4 }}>
-                          ₹{b.advancePaid} paid
-                        </div>
+                        <span
+  style={{
+    background: "rgba(34,197,94,0.15)",
+    border: "1px solid rgba(34,197,94,0.3)",
+    color: "#22c55e",
+    borderRadius: 999,
+    padding: "8px 14px",
+    fontSize: "0.8rem",
+    fontWeight: 600,
+  }}
+>
+  ✓ Paid
+</span>
                       )}
                     </div>
                   </td>
