@@ -140,7 +140,7 @@ export default function Pricing() {
                 }}
               >
                 <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.5)" }}>
-                  💳 Advance (online)
+                  💳 Pay At Venue
                 </span>
                 <span style={{ fontWeight: 700, color: plan.color, fontSize: "1rem" }}>
                   {plan.advance}
@@ -171,8 +171,7 @@ export default function Pricing() {
 
         {/* Bottom note */}
         <p style={{ textAlign: "center", marginTop: 40, color: "rgba(255,255,255,0.25)", fontSize: "0.85rem" }}>
-          * Advance is non-refundable for cancellations within 2 hours of the slot.
-          Remaining amount collected at venue.
+          * Payment is collected at the venue by Cash, UPI, PhonePe or Paytm after booking approval.
         </p>
       </div>
     </section>
