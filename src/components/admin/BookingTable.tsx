@@ -204,6 +204,7 @@ export default function BookingTable({ filter = "all" }: BookingTableProps) {
                 <th>Facility</th>
                 <th>Date</th>
                 <th>Slot</th>
+                <th>Amount</th>
                 <th>Payment</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -263,6 +264,26 @@ export default function BookingTable({ filter = "all" }: BookingTableProps) {
                   </td>
                   <td>
                     <div>
+                      <td>
+  <div
+    style={{
+      color: "#22c55e",
+      fontWeight: 700,
+      fontSize: "1rem",
+    }}
+  >
+    ₹{b.amount}
+  </div>
+
+  <div
+    style={{
+      color: "rgba(255,255,255,0.4)",
+      fontSize: "0.75rem",
+    }}
+  >
+    {b.duration} Minutes
+  </div>
+</td>
                       {paymentBadge(b.paymentStatus)}
                       {b.advancePaid > 0 && (
                         <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.3)", marginTop: 4 }}>
