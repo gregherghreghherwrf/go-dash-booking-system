@@ -142,9 +142,6 @@ export default function Pricing() {
                 <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.5)" }}>
                   💳 Pay At Venue
                 </span>
-                <span style={{ fontWeight: 700, color: plan.color, fontSize: "1rem" }}>
-                  {plan.advance}
-                </span>
               </div>
 
               {/* Features */}
