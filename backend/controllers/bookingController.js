@@ -26,7 +26,7 @@ exports.createBooking = async (req, res) => {
   try {
     console.log("BOOKING REQUEST");
     console.log(req.body);
-    
+
     const {
     facility,
     date,
@@ -148,10 +148,12 @@ exports.getMyBookings = async (req, res) => {
 
 exports.getStats = async (req, res) => {
   try {
-    const today = new Date().toISOString().split("T")[0];
+    const date =
+  req.query.date ||
+  new Date().toISOString().split("T")[0];
 
     const totalBookings = await Booking.countDocuments();
-    const todayBookings = await Booking.countDocuments({ date: today });
+    const todayBookings = await Booking.countDocuments({ date: date });
     const pending = await Booking.countDocuments({ bookingStatus: "pending" });
     const approved = await Booking.countDocuments({ bookingStatus: "approved" });
 
@@ -162,7 +164,7 @@ exports.getStats = async (req, res) => {
     const totalRevenue = revenueResult[0]?.total || 0;
 
     const todayRevenueResult = await Booking.aggregate([
-      { $match: { paymentStatus: "paid", date: today } },
+      { $match: { paymentStatus: "paid", date: date } },
       { $group: { _id: null, total: { $sum: "$advancePaid" } } },
     ]);
     const todayRevenue = todayRevenueResult[0]?.total || 0;
@@ -182,20 +184,22 @@ exports.getStats = async (req, res) => {
 
 exports.getSlotStats = async (req, res) => {
   try {
-    const today = new Date().toISOString().split("T")[0];
+    const date =
+  req.query.date ||
+  new Date().toISOString().split("T")[0];
 
     const result = await Promise.all(
       ALL_SLOTS.map(async (slot) => {
         const pickleballBooked = await Booking.countDocuments({
           facility: "Pickleball",
-          date: today,
+          date: date,
           slot,
           bookingStatus: { $in: ["pending", "approved"] },
         });
 
         const boxBooked = await Booking.countDocuments({
           facility: "Box Cricket",
-          date: today,
+          date: date,
           slot,
           bookingStatus: { $in: ["pending", "approved"] },
         });

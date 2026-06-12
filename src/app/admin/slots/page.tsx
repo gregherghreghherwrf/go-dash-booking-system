@@ -6,6 +6,7 @@ import axios from "axios";
 
 const API = process.env.NEXT_PUBLIC_API_URL!;
 
+
 const ALL_SLOTS = [
   "4:00 PM - 4:30 PM",
   "4:30 PM - 5:00 PM",
@@ -30,12 +31,16 @@ const ALL_SLOTS = [
 
 export default function SlotsPage() {
   const [slots, setSlots] = useState([]);
+
+  const [selectedDate, setSelectedDate] = useState(
+  new Date().toISOString().split("T")[0]
+);
   useEffect(() => {
     axios
       .get(`${API}/api/admin/slot-stats`, {
         params: {
           facility: "Pickleball",
-          date: new Date().toISOString().split("T")[0],
+          date: selectedDate,
         },
       })
       .then((res) => {
@@ -43,7 +48,7 @@ export default function SlotsPage() {
   setSlots(res.data);
 })
       .catch((err) => console.error(err));
-  }, []);
+  }, [selectedDate]);
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "var(--bg-base)" }}>
       <Sidebar />
@@ -63,6 +68,20 @@ export default function SlotsPage() {
           <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.88rem" }}>
             All available time slots across both facilities
           </p>
+          <div style={{ marginTop: 16 }}>
+  <input
+    type="date"
+    value={selectedDate}
+    onChange={(e) => setSelectedDate(e.target.value)}
+    style={{
+      padding: "10px 14px",
+      borderRadius: 8,
+      background: "#111827",
+      color: "#fff",
+      border: "1px solid rgba(255,255,255,0.1)",
+    }}
+  />
+</div>
         </div>
 
         <div
