@@ -38,15 +38,16 @@ export default function Navbar() {
       }}
     >
       <div
-        style={{
-          maxWidth: 1280,
-          margin: "0 auto",
-          padding: "0 24px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
+  style={{
+    maxWidth: 1280,
+    margin: "0 auto",
+    padding: "0 24px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+  }}
+>
         {/* Logo */}
         <Link href="/" style={{ textDecoration: "none" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -144,19 +145,23 @@ export default function Navbar() {
 
         {/* Mobile Hamburger */}
         <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          style={{
-            display: "none",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            color: "white",
-            fontSize: 24,
-          }}
-          className="mobile-menu-btn"
-        >
-          {menuOpen ? "✕" : "☰"}
-        </button>
+  onClick={() => setMenuOpen(!menuOpen)}
+  className="mobile-menu-btn"
+  style={{
+    display: "none",
+    background: "rgba(34,197,94,0.12)",
+    border: "1px solid rgba(34,197,94,0.25)",
+    color: "#22c55e",
+    width: "42px",
+    height: "42px",
+    borderRadius: "10px",
+    fontSize: "22px",
+    marginLeft: "auto",
+    cursor: "pointer",
+  }}
+>
+  {menuOpen ? "✕" : "☰"}
+</button>
       </div>
 
       {/* Mobile Menu */}

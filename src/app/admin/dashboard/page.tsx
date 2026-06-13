@@ -78,20 +78,17 @@ export default function Dashboard() {
   className="mobile-menu-btn"
   onClick={() => setSidebarOpen(true)}
   style={{
-    position: "fixed",
-    top: "15px",
-    right: "15px",
-    zIndex: 10000,
-    background: "rgba(17,24,39,0.95)",
+    background: "rgba(17,24,39,0.9)",
     border: "1px solid rgba(255,255,255,0.1)",
     color: "#fff",
     padding: "10px 14px",
-    borderRadius: "10px",
+    borderRadius: 10,
+    marginBottom: 12,
     cursor: "pointer",
     fontSize: "20px",
   }}
 >
-  ☰
+  ☰ Menu
 </button>
             <h1
               style={{
