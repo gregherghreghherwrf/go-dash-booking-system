@@ -158,6 +158,7 @@ export default function Navbar() {
     fontSize: "22px",
     marginLeft: "auto",
     cursor: "pointer",
+    zIndex: 101,
   }}
 >
   {menuOpen ? "✕" : "☰"}
@@ -165,14 +166,32 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div
-          style={{
-            background: "rgba(3,7,18,0.98)",
-            borderTop: "1px solid rgba(255,255,255,0.06)",
-            padding: "16px 24px 24px",
-          }}
-        >
+      {/* Mobile Menu */}
+{menuOpen && (
+  <>
+    <div
+      onClick={() => setMenuOpen(false)}
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "rgba(0,0,0,0.6)",
+        zIndex: 99,
+      }}
+    />
+
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        right: 0,
+        width: "280px",
+        height: "100vh",
+        background: "#030712",
+        borderLeft: "1px solid rgba(255,255,255,0.08)",
+        padding: "80px 24px 24px",
+        zIndex: 100,
+      }}
+    >
           {[...navLinks, { href: "/admin/dashboard", label: "Admin" }].map((link) => (
             <Link
               key={link.href}
@@ -191,6 +210,7 @@ export default function Navbar() {
             </Link>
           ))}
         </div>
+        </>
       )}
 
       <style>{`
