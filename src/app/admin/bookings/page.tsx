@@ -22,15 +22,16 @@ export default function BookingsPage() {
               isOpen={sidebarOpen}
               onClose={() => setSidebarOpen(false)}
             />
+              
 
       <main
-        style={{
-          marginLeft: 260,
-          padding: "40px 36px",
-          width: "100%",
-          minHeight: "100vh",
-        }}
-      >
+  className="admin-main"
+  style={{
+    padding: "40px 36px",
+    width: "100%",
+    minHeight: "100vh",
+  }}
+>
         {/* Header */}
         <div style={{ marginBottom: 32 }}>
           <h1
