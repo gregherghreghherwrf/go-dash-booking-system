@@ -212,11 +212,22 @@ export default function Navbar() {
       )}
 
       <style>{`
-        @media (max-width: 768px) {
-          .desktop-nav { display: none !important; }
-          .mobile-menu-btn { display: block !important; }
-        }
-      `}</style>
+  .mobile-menu-btn {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .desktop-nav {
+      display: none !important;
+    }
+
+    .mobile-menu-btn {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+`}</style>
     </nav>
   );
 }
