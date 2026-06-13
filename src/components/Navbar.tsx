@@ -156,7 +156,7 @@ export default function Navbar() {
     height: "42px",
     borderRadius: "10px",
     fontSize: "22px",
-    marginLeft: "auto",
+    marginRight: "auto",
     cursor: "pointer",
     zIndex: 101,
   }}
