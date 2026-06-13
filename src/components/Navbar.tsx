@@ -148,18 +148,21 @@ export default function Navbar() {
   onClick={() => setMenuOpen(!menuOpen)}
   className="mobile-menu-btn"
   style={{
-    display: "none",
-    background: "rgba(34,197,94,0.12)",
-    border: "1px solid rgba(34,197,94,0.25)",
-    color: "#22c55e",
-    width: "42px",
-    height: "42px",
-    borderRadius: "10px",
-    fontSize: "22px",
-    marginRight: "auto",
-    cursor: "pointer",
-    zIndex: 101,
-  }}
+  display: "none",
+  position: "absolute",
+  right: "20px",
+  top: "50%",
+  transform: "translateY(-50%)",
+  background: "rgba(34,197,94,0.12)",
+  border: "1px solid rgba(34,197,94,0.25)",
+  color: "#22c55e",
+  width: "42px",
+  height: "42px",
+  borderRadius: "10px",
+  fontSize: "22px",
+  cursor: "pointer",
+  zIndex: 9999,
+}}
 >
   {menuOpen ? "✕" : "☰"}
 </button>
