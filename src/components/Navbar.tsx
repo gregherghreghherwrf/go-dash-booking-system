@@ -39,14 +39,12 @@ export default function Navbar() {
     >
       <div
   style={{
-    maxWidth: 1280,
-    margin: "0 auto",
-    padding: "0 24px",
+    width: "100%",
+    padding: "0 20px",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    width: "100%",
-    position: "relative", // ADD THIS
+    position: "relative",
   }}
 >
         {/* Logo */}
