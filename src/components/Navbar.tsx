@@ -145,19 +145,7 @@ export default function Navbar() {
         {/* Mobile Hamburger */}
         <button
   onClick={() => setMenuOpen(!menuOpen)}
-  style={{
-    position: "fixed",
-    top: "20px",
-    right: "20px",
-    width: "44px",
-    height: "44px",
-    background: "rgba(34,197,94,0.12)",
-    color: "#22c55e",
-    borderRadius: "12px",
-    zIndex: 999999,
-    border: "1px solid rgba(34,197,94,0.25)",
-    fontSize: "24px",
-  }}
+ className="mobile-menu-btn"
 >
   {menuOpen ? "✕" : "☰"}
 </button>
