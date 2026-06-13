@@ -31,6 +31,8 @@ const ALL_SLOTS = [
 
 export default function SlotsPage() {
   const [slots, setSlots] = useState([]);
+  const [sidebarOpen, setSidebarOpen] =
+    useState(false);
 
   const [selectedDate, setSelectedDate] = useState(
   new Date().toISOString().split("T")[0]
@@ -51,8 +53,34 @@ export default function SlotsPage() {
   }, [selectedDate]);
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "var(--bg-base)" }}>
-      <Sidebar />
-      <main style={{ marginLeft: 260, padding: "40px 36px", width: "100%" }}>
+      <Sidebar
+                          isOpen={sidebarOpen}
+                          onClose={() => setSidebarOpen(false)}
+                        />
+      <main
+  className="admin-main"
+  style={{
+    padding: "40px 36px",
+    width: "100%",
+    minHeight: "100vh",
+  }}
+>
+  <button
+  className="mobile-menu-btn"
+  onClick={() => setSidebarOpen(true)}
+  style={{
+    background: "rgba(17,24,39,0.9)",
+    border: "1px solid rgba(255,255,255,0.1)",
+    color: "#fff",
+    padding: "10px 14px",
+    borderRadius: 10,
+    marginBottom: 12,
+    cursor: "pointer",
+    fontSize: "20px",
+  }}
+>
+  ☰ Menu
+</button>
         <div style={{ marginBottom: 32 }}>
           <h1
             style={{
