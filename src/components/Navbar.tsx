@@ -44,13 +44,12 @@ export default function Navbar() {
     padding: "0 24px",
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
     width: "100%",
     position: "relative", // ADD THIS
   }}
 >
         {/* Logo */}
-        <Link href="/" style={{ textDecoration: "none" }}>
+        <Link href="/" style={{textDecoration: "none",flexShrink: 0,}}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <div
               style={{
@@ -149,21 +148,19 @@ export default function Navbar() {
   onClick={() => setMenuOpen(!menuOpen)}
   className="mobile-menu-btn"
   style={{
-  display: "none",
-  position: "absolute",
-  right: "24px",
-  top: "50%",
-  transform: "translateY(-50%)",
-  background: "rgba(34,197,94,0.12)",
-  border: "1px solid rgba(34,197,94,0.25)",
-  color: "#22c55e",
-  width: "44px",
-  height: "44px",
-  borderRadius: "12px",
-  fontSize: "22px",
-  cursor: "pointer",
-  zIndex: 10001,
-}}
+    display: "none",
+    marginLeft: "auto",   // THIS pushes it right
+    background: "rgba(34,197,94,0.12)",
+    border: "1px solid rgba(34,197,94,0.25)",
+    color: "#22c55e",
+    width: "44px",
+    height: "44px",
+    borderRadius: "12px",
+    fontSize: "24px",
+    cursor: "pointer",
+    alignItems: "center",
+    justifyContent: "center",
+  }}
 >
   {menuOpen ? "✕" : "☰"}
 </button>
