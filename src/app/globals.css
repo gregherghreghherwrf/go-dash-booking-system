@@ -449,12 +449,20 @@ body {
 }
 
 .admin-main {
-  width: 100%;
+  margin-left: 260px;
+  transition: all 0.3s ease;
 }
 
 @media (max-width: 1024px) {
-  .mobile-menu-btn {
-    display: block !important;
+  .admin-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 260px;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 9999;
   }
 
   .admin-sidebar {

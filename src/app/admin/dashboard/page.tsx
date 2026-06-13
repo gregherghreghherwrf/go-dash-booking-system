@@ -57,12 +57,11 @@ export default function Dashboard() {
       <main
   className="admin-main"
   style={{
-    marginLeft: 260,
-          padding: "40px 36px",
-          width: "100%",
-          minHeight: "100vh",
-        }}
-      >
+    padding: "40px 36px",
+    width: "100%",
+    minHeight: "100vh",
+  }}
+>  
         {/* Header */}
         <div
           style={{
