@@ -213,7 +213,7 @@ export default function Navbar() {
 
       <style>{`
   .mobile-menu-btn {
-    display: none;
+    display: flex;
   }
 
   @media (max-width: 768px) {

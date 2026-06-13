@@ -457,26 +457,17 @@ body {
   margin: 0 auto;
 }
 
-@media (max-width: 1024px) {
+@media screen and (max-width: 768px) {
 
   .desktop-nav {
     display: none !important;
   }
 
   .mobile-menu-btn {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  z-index: 10000;
-  background: rgba(17,24,39,0.95);
-  border: 1px solid rgba(255,255,255,0.1);
-  color: #fff;
-  padding: 10px 14px;
-  border-radius: 10px;
-}
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
   nav > div {
     padding-right: 70px !important;
   }
