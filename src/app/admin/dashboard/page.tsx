@@ -76,22 +76,22 @@ export default function Dashboard() {
         >
           <div>
             <button
-    className="mobile-menu-btn"
-    onClick={() => setSidebarOpen(true)}
-    style={{
-      display: "none",
-      background: "rgba(17,24,39,0.8)",
-      border: "1px solid rgba(255,255,255,0.1)",
-      color: "#fff",
-      padding: "10px 14px",
-      borderRadius: 10,
-      marginBottom: 12,
-      cursor: "pointer",
-      fontSize: "20px",
-    }}
-  >
-    ☰
-  </button>
+  className="mobile-menu-btn"
+  onClick={() => setSidebarOpen(true)}
+  style={{
+    position: "fixed",
+    top: 15,
+    left: 15,
+    zIndex: 99999,
+    background: "red",
+    color: "white",
+    padding: "12px",
+    border: "none",
+    borderRadius: "8px",
+  }}
+>
+  ☰ MENU
+</button>
             <h1
               style={{
                 fontFamily: "Space Grotesk, sans-serif",
