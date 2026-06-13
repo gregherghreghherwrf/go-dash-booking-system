@@ -144,27 +144,23 @@ export default function Navbar() {
 
         {/* Mobile Hamburger */}
         <button
-        onClick={() => setMenuOpen(!menuOpen)}
-        className="mobile-menu-btn"
-        style={{
-          display: "none",
-          position: "absolute",
-          top: "20px",
-          right: "20px",
-          transform: "translateY(-50%)",
-          background: "rgba(34,197,94,0.12)",
-          border: "1px solid rgba(34,197,94,0.25)",
-          color: "#22c55e",
-          width: "44px",
-          height: "44px",
-          borderRadius: "12px",
-          fontSize: "24px",
-          cursor: "pointer",
-          zIndex: 9999,
-          }}
-        >
-        {menuOpen ? "✕" : "☰"}
-        </button>
+  onClick={() => setMenuOpen(!menuOpen)}
+  style={{
+    position: "fixed",
+    top: "20px",
+    right: "20px",
+    width: "44px",
+    height: "44px",
+    background: "rgba(34,197,94,0.12)",
+    color: "#22c55e",
+    borderRadius: "12px",
+    zIndex: 999999,
+    border: "1px solid rgba(34,197,94,0.25)",
+    fontSize: "24px",
+  }}
+>
+  {menuOpen ? "✕" : "☰"}
+</button>
         </div>
 
         {/* Mobile Menu */}
