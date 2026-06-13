@@ -473,6 +473,9 @@ body {
   padding: 10px 14px;
   border-radius: 10px;
 }
+  nav > div {
+    padding-right: 70px !important;
+  }
   .admin-sidebar {
     position: fixed;
     top: 0;
