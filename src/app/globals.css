@@ -456,7 +456,7 @@ body {
 @media (max-width: 1024px) {
 
   .mobile-menu-btn {
-  display: block !important;
+  display: flex !important;
   position: fixed;
   top: 15px;
   left: 15px;

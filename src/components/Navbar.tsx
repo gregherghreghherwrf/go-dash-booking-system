@@ -46,6 +46,7 @@ export default function Navbar() {
     alignItems: "center",
     justifyContent: "space-between",
     width: "100%",
+    position: "relative", // ADD THIS
   }}
 >
         {/* Logo */}
@@ -150,18 +151,18 @@ export default function Navbar() {
   style={{
   display: "none",
   position: "absolute",
-  right: "20px",
+  right: "24px",
   top: "50%",
   transform: "translateY(-50%)",
   background: "rgba(34,197,94,0.12)",
   border: "1px solid rgba(34,197,94,0.25)",
   color: "#22c55e",
-  width: "42px",
-  height: "42px",
-  borderRadius: "10px",
+  width: "44px",
+  height: "44px",
+  borderRadius: "12px",
   fontSize: "22px",
   cursor: "pointer",
-  zIndex: 9999,
+  zIndex: 10001,
 }}
 >
   {menuOpen ? "✕" : "☰"}
@@ -178,7 +179,7 @@ export default function Navbar() {
         position: "fixed",
         inset: 0,
         background: "rgba(0,0,0,0.6)",
-        zIndex: 99,
+        zIndex: 9997,
       }}
     />
 
@@ -192,7 +193,7 @@ export default function Navbar() {
         background: "#030712",
         borderLeft: "1px solid rgba(255,255,255,0.08)",
         padding: "80px 24px 24px",
-        zIndex: 100,
+        zIndex: 9998,
       }}
     >
           {[...navLinks, { href: "/admin/dashboard", label: "Admin" }].map((link) => (
