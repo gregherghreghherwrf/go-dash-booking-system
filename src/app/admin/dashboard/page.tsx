@@ -50,9 +50,9 @@ export default function Dashboard() {
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "var(--bg-base)" }}>
       <Sidebar
-  isOpen={sidebarOpen}
-  onClose={() => setSidebarOpen(false)}
-/>
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
 
       <main
   className="admin-main"

@@ -13,10 +13,15 @@ const FILTERS = [
 
 export default function BookingsPage() {
   const [filter, setFilter] = useState("all");
+  const [sidebarOpen, setSidebarOpen] =
+  useState(false);
 
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "var(--bg-base)" }}>
-      <Sidebar />
+      <Sidebar
+              isOpen={sidebarOpen}
+              onClose={() => setSidebarOpen(false)}
+            />
 
       <main
         style={{
