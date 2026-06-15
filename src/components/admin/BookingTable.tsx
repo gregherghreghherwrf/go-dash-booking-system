@@ -49,12 +49,16 @@ export default function BookingTable({ filter = "all" }: BookingTableProps) {
   const [loading, setLoading] = useState(true);
   const [actionId, setActionId] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [token, setToken] = useState("");
 
   const fetchBookings = useCallback(async () => {
     try {
       const params: Record<string, string> = {};
       if (filter !== "all") params.status = filter;
-      const { data } = await axios.get(`${API}/api/admin/bookings`, { params });
+      const { data } = await axios.get(`${API}/api/admin/bookings`, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },});
       setBookings(data);
       setLastUpdated(new Date());
     } catch (err) {
@@ -62,19 +66,34 @@ export default function BookingTable({ filter = "all" }: BookingTableProps) {
     } finally {
       setLoading(false);
     }
-  }, [filter]);
+  }, [filter,token]);
 
   useEffect(() => {
+  if (typeof window !== "undefined") {
+    setToken(localStorage.getItem("adminToken") || "");
+  }
+}, []);
+
+  useEffect(() => {
+    if (!token) return;
     fetchBookings();
     // Auto-refresh every 15 seconds for real-time feel
     const interval = setInterval(fetchBookings, 15000);
     return () => clearInterval(interval);
-  }, [fetchBookings]);
+  }, [fetchBookings, token]);
 
   const handleApprove = async (id: string) => {
     setActionId(id);
     try {
-      const { data } = await axios.put(`${API}/api/admin/approve/${id}`);
+      const { data } = await axios.put(
+  `${API}/api/admin/approve/${id}`,
+  {},
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
       setBookings((prev) =>
         prev.map((b) => (b._id === id ? { ...b, bookingStatus: data.bookingStatus } : b))
       );
@@ -88,7 +107,15 @@ export default function BookingTable({ filter = "all" }: BookingTableProps) {
   const handleReject = async (id: string) => {
     setActionId(id);
     try {
-      const { data } = await axios.put(`${API}/api/admin/reject/${id}`);
+      const { data } = await axios.put(
+  `${API}/api/admin/reject/${id}`,
+  {},
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
       setBookings((prev) =>
         prev.map((b) => (b._id === id ? { ...b, bookingStatus: data.bookingStatus } : b))
       );
@@ -102,8 +129,14 @@ export default function BookingTable({ filter = "all" }: BookingTableProps) {
   const markAsPaid = async (id: string) => {
   try {
     const { data } = await axios.put(
-      `${API}/api/admin/payment-paid/${id}`
-    );
+  `${API}/api/admin/payment-paid/${id}`,
+  {},
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
 
     setBookings((prev) =>
       prev.map((b) =>
@@ -217,8 +250,16 @@ export default function BookingTable({ filter = "all" }: BookingTableProps) {
           overflow: "hidden",
         }}
       >
-        <div style={{ overflowX: "auto" }}>
-          <table className="data-table">
+        <div
+  style={{
+    width: "100%",
+    overflowX: "auto",
+    WebkitOverflowScrolling: "touch",
+  }}
+>
+          <table className="data-table" style={{
+    minWidth: "1200px",
+  }}>
             <thead>
               <tr>
                 <th>User</th>

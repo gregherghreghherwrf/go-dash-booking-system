@@ -176,25 +176,52 @@ export default function Navbar() {
         borderLeft: "1px solid rgba(255,255,255,0.08)",
         padding: "80px 24px 24px",
         zIndex: 9998,
+        display: "flex",
+        flexDirection: "column",
+        gap: "12px",
       }}
     >
-          {[...navLinks, { href: "/admin/dashboard", label: "Admin" }].map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              style={{
-                display: "block",
-                padding: "12px 0",
-                borderBottom: "1px solid rgba(255,255,255,0.04)",
-                color: "rgba(255,255,255,0.8)",
-                textDecoration: "none",
-                fontWeight: 500,
-              }}
-            >
-              {link.label}
-            </Link>
-          ))}
+      <Link
+        href="/"
+        onClick={() => setMenuOpen(false)}
+        style={{
+          color: "#fff",
+          textDecoration: "none",
+          fontSize: "18px",
+          fontWeight: 600,
+          padding: "12px 0",
+        }}
+      >
+        Home
+      </Link>
+
+       <Link
+        href="/booking"
+        onClick={() => setMenuOpen(false)}
+        style={{
+          color: "#fff",
+          textDecoration: "none",
+          fontSize: "18px",
+          fontWeight: 600,
+          padding: "12px 0",
+        }}
+      >
+        Book Now
+      </Link>
+
+      <Link
+        href="/admin"
+        onClick={() => setMenuOpen(false)}
+        style={{
+          color: "#22c55e",
+          textDecoration: "none",
+          fontSize: "18px",
+          fontWeight: 700,
+          padding: "12px 0",
+        }}
+      >
+        Admin
+      </Link>
         </div>
         </>
       )}

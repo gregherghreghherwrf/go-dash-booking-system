@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const navItems = [
   { href: "/admin/dashboard", icon: "📊", label: "Dashboard" },
@@ -21,6 +22,13 @@ export default function Sidebar({
   onClose,
 }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = () => {
+  localStorage.removeItem("adminToken");
+  sessionStorage.clear();
+  router.push("/admin/login");
+};
 
   return (
     <aside
@@ -45,6 +53,7 @@ export default function Sidebar({
 >
   ✕
 </button>
+
       {/* Brand */}
       <div
         style={{
@@ -165,8 +174,18 @@ export default function Sidebar({
           right: 0,
           padding: "16px 12px",
           borderTop: "1px solid rgba(255,255,255,0.05)",
+          display: "flex",
+          flexDirection: "column",
+          gap: 10,
         }}
       >
+        <button
+  onClick={handleLogout}
+  className="btn-danger"
+  style={{ width: "100%" }}
+>
+  Logout
+</button>
         <Link
           href="/"
           style={{

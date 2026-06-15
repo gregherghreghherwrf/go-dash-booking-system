@@ -5,6 +5,9 @@ import axios from "axios";
 import Sidebar from "../../../components/admin/Sidebar";
 import StatsCard from "../../../components/admin/StatsCard";
 import BookingTable from "../../../components/admin/BookingTable";
+import {
+  useRouter,
+} from "next/navigation";
 
 const API = process.env.NEXT_PUBLIC_API_URL!;
 
@@ -20,15 +23,31 @@ interface Stats {
 export default function Dashboard() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [loadingStats, setLoadingStats] = useState(true);
-  const [now, setNow] = useState(new Date());
+  const [now, setNow] = useState<Date | null>(null);
   const [sidebarOpen, setSidebarOpen] =
   useState(false);
+  const router = useRouter();
+
+useEffect(() => {
+  if (typeof window === "undefined") return;
+
+  const token = localStorage.getItem("adminToken");
+
+  if (!token) {
+    router.replace("/admin/login");
+  }
+}, [router]);
 
   // Clock ticker
   useEffect(() => {
-    const t = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(t);
-  }, []);
+  setNow(new Date());
+
+  const t = setInterval(() => {
+    setNow(new Date());
+  }, 1000);
+
+  return () => clearInterval(t);
+}, []);
 
   const fetchStats = useCallback(async () => {
     try {
@@ -127,19 +146,23 @@ export default function Dashboard() {
                 lineHeight: 1,
               }}
             >
-              {now.toLocaleTimeString("en-IN", {
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-              })}
+              {now
+  ? now.toLocaleTimeString("en-IN", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    })
+  : "--:--:--"}
             </div>
             <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.3)", marginTop: 4 }}>
-              {now.toLocaleDateString("en-IN", {
-                weekday: "short",
-                day: "numeric",
-                month: "short",
-                year: "numeric",
-              })}
+              {now
+  ? now.toLocaleDateString("en-IN", {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    })
+  : ""}
             </div>
           </div>
         </div>

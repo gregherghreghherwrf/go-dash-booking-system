@@ -27,9 +27,10 @@ export default function BookingsPage() {
       <main
   className="admin-main"
   style={{
-    padding: "40px 36px",
+    padding: "80px 16px 16px",
     width: "100%",
     minHeight: "100vh",
+    position: "relative",
   }}
 >
   <button

@@ -31,26 +31,41 @@ const ALL_SLOTS = [
 
 export default function SlotsPage() {
   const [slots, setSlots] = useState([]);
+  const [token, setToken] = useState("");
   const [sidebarOpen, setSidebarOpen] =
     useState(false);
 
   const [selectedDate, setSelectedDate] = useState(
   new Date().toISOString().split("T")[0]
 );
+
   useEffect(() => {
-    axios
-      .get(`${API}/api/admin/slot-stats`, {
-        params: {
-          facility: "Pickleball",
-          date: selectedDate,
-        },
-      })
-      .then((res) => {
-  console.log("Slot Stats:", res.data);
-  setSlots(res.data);
-})
-      .catch((err) => console.error(err));
-  }, [selectedDate]);
+  if (typeof window !== "undefined") {
+    setToken(localStorage.getItem("adminToken") || "");
+  }
+}, []);
+
+  useEffect(() => {
+  if (!token) return;
+
+  axios
+    .get(`${API}/api/admin/slot-stats`, {
+      params: {
+        facility: "Pickleball",
+        date: selectedDate,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      console.log("Slot Stats:", res.data);
+      setSlots(res.data);
+    })
+    .catch((err) => {
+      console.error("Slot Stats Error:", err);
+    });
+}, [selectedDate, token]);
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "var(--bg-base)" }}>
       <Sidebar

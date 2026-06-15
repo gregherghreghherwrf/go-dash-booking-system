@@ -2,6 +2,9 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const adminRoutes = require(
+  "./routes/admin"
+);
 
 connectDB();
 
@@ -26,6 +29,7 @@ app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/bookings", require("./routes/bookingRoutes"));
 app.use("/api/admin", require("./routes/adminRoutes"));
 app.use("/api/payment", require("./routes/paymentRoutes"));
+app.use("/api/admin", require("./routes/adminRoutes"));
 
 app.get("/", (req, res) => {
   res.json({ message: "Go Dash API Running ✅", timestamp: new Date() });
