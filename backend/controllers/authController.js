@@ -22,10 +22,13 @@ async(req,res)=>{
 
  const {
   name,
-  email,
   password,
   phone
  } = req.body;
+
+ const email = req.body.email
+  .trim()
+  .toLowerCase();
 
  const userExists =
  await User.findOne({email});
@@ -67,9 +70,13 @@ async(req,res)=>{
 
 exports.loginUser = async (req, res) => {
 
-  const { email, password } = req.body;
+  const password = req.body.password;
 
-  const user = await User.findOne({ email });
+const email = req.body.email
+  .trim()
+  .toLowerCase();
+
+  const user = await User.findOne({ email, });
 
   if (
     user &&
