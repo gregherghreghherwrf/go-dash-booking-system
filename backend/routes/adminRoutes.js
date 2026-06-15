@@ -18,14 +18,15 @@ router.put("/payment-paid/:id", auth,markPaymentPaid);
 
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const email = (req.body.email || "").trim().toLowerCase();
+    const password = (req.body.password || "").trim();
 
-    if (
-      email !== process.env.ADMIN_EMAIL ||
-      password !== process.env.ADMIN_PASSWORD
-    ) {
+    const adminEmail = (process.env.ADMIN_EMAIL || "").trim().toLowerCase();
+    const adminPassword = (process.env.ADMIN_PASSWORD || "").trim();
+
+    if (email !== adminEmail || password !== adminPassword) {
       return res.status(401).json({
-        message: "invalid credentials",
+        message: "Invalid credentials",
       });
     }
 

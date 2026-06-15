@@ -139,6 +139,7 @@ export default function Hero() {
 
         {/* CTA Buttons */}
         <div
+          className="hero-cta"
           style={{
             display: "flex",
             gap: 16,
@@ -156,6 +157,7 @@ export default function Hero() {
 
         {/* Trust Indicators */}
         <div
+          className="hero-stats"
           style={{
             display: "flex",
             gap: 32,

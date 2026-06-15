@@ -310,8 +310,15 @@ body {
 /* ─── Slot Grid ───────────────────────────────────── */
 .slot-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+/* ─── Booking Grid (2-col → 1-col on mobile) ─────── */
+.booking-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
 .slot-btn {
@@ -447,42 +454,85 @@ body {
 .mobile-menu-btn {
   display: none;
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 16px;
+  right: 16px;
   background: rgba(34, 197, 94, 0.12);
   border: 1px solid rgba(34, 197, 94, 0.25);
   color: #22c55e;
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  font-size: 24px;
+  font-size: 22px;
   cursor: pointer;
   z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .admin-main {
   margin-left: 260px;
   transition: all 0.3s ease;
 }
+
 .navbar-container {
   max-width: 1280px;
   margin: 0 auto;
 }
 
+/* ════════════════════════════════════════════════════
+   MOBILE RESPONSIVE — ≤ 768px
+════════════════════════════════════════════════════ */
 @media screen and (max-width: 768px) {
 
+  /* ── Navbar ── */
   .desktop-nav {
     display: none !important;
   }
 
   .mobile-menu-btn {
     display: flex !important;
-    align-items: center;
-    justify-content: center;
   }
+
   nav > div {
-    padding-right: 70px !important;
+    padding-right: 68px !important;
   }
+
+  /* ── Cards — tighter padding on small screens ── */
+  .glass-card {
+    border-radius: 16px;
+  }
+
+  /* ── Booking grid collapses to single column ── */
+  .booking-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* ── Slot grid — smaller min cell so 2 fit per row ── */
+  .slot-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .slot-btn {
+    padding: 12px 6px;
+    font-size: 0.75rem;
+  }
+
+  /* ── Buttons — full width on mobile ── */
+  .btn-primary,
+  .btn-secondary {
+    font-size: 0.9rem;
+    padding: 13px 20px;
+  }
+
+  /* ── Section titles ── */
+  .section-title {
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
+  }
+
+  /* ── Admin sidebar — slide-over on mobile ── */
   .admin-sidebar {
     position: fixed;
     top: 0;
@@ -505,6 +555,94 @@ body {
   .admin-main {
     margin-left: 0 !important;
     width: 100% !important;
-    padding: 70px 16px 16px !important;
+    padding: 72px 14px 24px !important;
+  }
+
+  /* ── Data table — horizontal scroll on mobile ── */
+  .data-table th,
+  .data-table td {
+    padding: 12px 10px;
+    font-size: 0.8rem;
+  }
+
+  /* ── Hero stats ── */
+  .hero-stats {
+    gap: 16px !important;
+  }
+
+  /* ── Input fields — prevent iOS zoom (font must be ≥16px) ── */
+  .input-field {
+    font-size: 16px !important;
+  }
+
+  /* ── Section padding — reduce 100px → 60px on mobile ── */
+  section {
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+  }
+
+  /* ── Container horizontal padding ── */
+  [style*="padding: 0 24px"] {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* ── Section header bottom margin ── */
+  [style*="marginBottom: 72"] {
+    margin-bottom: 40px !important;
+  }
+
+  /* ── Hero: less top padding so content centers better ── */
+  [style*="paddingTop: 100"] {
+    padding-top: 80px !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   SMALL MOBILE — ≤ 480px
+════════════════════════════════════════════════════ */
+@media screen and (max-width: 480px) {
+
+  /* ── Cards — minimal horizontal padding ── */
+  .glass-card {
+    padding: 24px 18px !important;
+  }
+
+  /* ── Slot grid: 2 columns minimum ── */
+  .slot-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .slot-btn {
+    padding: 10px 4px;
+    font-size: 0.7rem;
+  }
+
+  /* ── Admin stat cards side by side ── */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  /* ── Hero CTA buttons — stack vertically ── */
+  .hero-cta {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .hero-cta a,
+  .hero-cta button {
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* ── Booking page cards ── */
+  .booking-card-pad {
+    padding: 20px 16px !important;
+  }
+
+  /* ── Divider spacing ── */
+  .divider {
+    margin: 40px 0;
   }
 }

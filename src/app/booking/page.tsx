@@ -280,7 +280,7 @@ const getBookingTimeRange = () => {
 
         {/* Step 1: Facility + Date */}
         <div
-          className="glass-card"
+          className="glass-card booking-card-pad"
           style={{ padding: "36px", marginBottom: 24 }}
         >
           <h2
@@ -315,7 +315,7 @@ const getBookingTimeRange = () => {
             Choose Facility &amp; Date
           </h2>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div className="booking-grid">
             {/* Facility Selector */}
             <div>
               <label style={{ display: "block", color: "rgba(255,255,255,0.5)", fontSize: "0.8rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 8 }}>
@@ -427,7 +427,7 @@ const getBookingTimeRange = () => {
         </div>
 
         {/* Step 2: Slot Selection */}
-        <div className="glass-card" style={{ padding: "36px", marginBottom: 24 }}>
+        <div className="glass-card booking-card-pad" style={{ padding: "36px", marginBottom: 24 }}>
           <h2
             style={{
               fontFamily: "Space Grotesk, sans-serif",
@@ -539,7 +539,7 @@ const getBookingTimeRange = () => {
 
         {/* Step 3: Pay */}
         {selectedSlot && (
-          <div className="glass-card" style={{ padding: "36px" }}>
+          <div className="glass-card booking-card-pad" style={{ padding: "36px" }}>
             <h2
               style={{
                 fontFamily: "Space Grotesk, sans-serif",

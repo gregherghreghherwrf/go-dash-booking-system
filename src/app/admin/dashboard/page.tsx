@@ -96,18 +96,8 @@ useEffect(() => {
             <button
   className="mobile-menu-btn"
   onClick={() => setSidebarOpen(true)}
-  style={{
-    background: "rgba(17,24,39,0.9)",
-    border: "1px solid rgba(255,255,255,0.1)",
-    color: "#fff",
-    padding: "10px 14px",
-    borderRadius: 10,
-    marginBottom: 12,
-    cursor: "pointer",
-    fontSize: "20px",
-  }}
 >
-  ☰ Menu
+  ☰
 </button>
             <h1
               style={{
@@ -169,9 +159,10 @@ useEffect(() => {
 
         {/* Stats Grid */}
         <div
+          className="stats-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))",
             gap: 20,
             marginBottom: 40,
           }}
