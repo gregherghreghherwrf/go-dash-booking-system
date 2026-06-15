@@ -14,6 +14,8 @@ export default function AdminLogin() {
 
   const login = async (e: any) => {
     e.preventDefault();
+    console.log("API URL:", API);
+console.log("Email:", email);
 
     try {
       const { data } = await axios.post("http://localhost:5000/api/admin/login",

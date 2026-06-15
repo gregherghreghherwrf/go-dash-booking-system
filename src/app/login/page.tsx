@@ -20,7 +20,13 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const res = await axios.post(`${API}/api/auth/login`, { email, password });
+      const res = await axios.post(
+  `${API}/api/auth/login`,
+  {
+    email: email.trim().toLowerCase(),
+    password: password.trim(),
+  }
+);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userName", res.data.name);
       router.push("/booking");
@@ -126,14 +132,17 @@ export default function LoginPage() {
                 Email
               </label>
               <input
-                id="login-email"
-                type="email"
-                placeholder="you@example.com"
-                className="input-field"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
+  id="login-email"
+  type="email"
+  placeholder="you@example.com"
+  className="input-field"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  autoCapitalize="none"
+  autoCorrect="off"
+  spellCheck={false}
+  required
+/>
             </div>
 
             <div>
